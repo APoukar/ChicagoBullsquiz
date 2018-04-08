@@ -1,0 +1,160 @@
+<resources>
+    <string name="app_name">Chicago Bulls quiz</string>
+    <string name="start_game">Start Game</string>
+    <string name="your_score">Your score</string>
+
+    <!--All the questions with answers in string arrays.
+        The first item is a question,
+        the second is the right answer-->
+    <string-array name="question_0">
+        <item>What number does "Benny the Bull" wear?</item>
+        <item>1</item>
+        <item>0</item>
+        <item>91</item>
+        <item>23</item>
+    </string-array>
+
+    <string-array name="question_1">
+        <item>What team originally drafted Nikola Mirotic in the 2011 NBA Draft?</item>
+        <item>Houston Rockets</item>
+        <item>Toronto Raptors</item>
+        <item>Chicago Bulls</item>
+        <item>Cleveland Cavaliers</item>
+    </string-array>
+
+    <string-array name="question_2">
+        <item>What is the Bulls record in the NBA Finals?</item>
+        <item>6 – 0</item>
+        <item>6 – 1</item>
+        <item>6 – 3</item>
+        <item>5 – 1</item>
+    </string-array>
+
+    <string-array name="question_3">
+        <item>When was the Bulls first season?</item>
+        <item>1966 – 1967</item>
+        <item>1964 – 1965</item>
+        <item>1969 – 1970</item>
+        <item>1971 – 1972</item>
+    </string-array>
+
+    <string-array name="question_4">
+        <item>What pick was Jimmy Butler selected with?</item>
+        <item>30th</item>
+        <item>15th</item>
+        <item>23rd</item>
+        <item>25th</item>
+    </string-array>
+
+    <string-array name="question_5">
+        <item>How old was Derrick Rose when he won his only MVP award?</item>
+        <item>22 years</item>
+        <item>21 years</item>
+        <item>20 years</item>
+        <item>24 years</item>
+    </string-array>
+
+    <string-array name="question_6">
+        <item>Which players were traded away (besides Pippen) when the team started the rebuilding process in 1998?</item>
+        <item>Kerr and Longley</item>
+        <item>Rodman and Kerr</item>
+        <item>Longley and Rodman</item>
+        <item>Jordan and Kerr</item>
+    </string-array>
+
+    <string-array name="question_7">
+        <item>Which teams faced the Bulls in their 1991 Playoffs run?</item>
+        <item>Knicks, 76ers, Pistons</item>
+        <item>Heats, Pistons, 76ers</item>
+        <item>Cavaliers, 76ers, Pistons</item>
+        <item>Jordan and Kerr</item>
+    </string-array>
+    <string-array name="question_8">
+        <item>How many times have Bulls won the Central division?</item>
+        <item>8 times</item>
+        <item>7 times</item>
+        <item>6 times</item>
+        <item>10 times</item>
+    </string-array>
+
+    <string-array name="question_9">
+        <item>The Chicago Bulls retired 4 numbers: 23 (Jordan), the 33 (Pippen), the 4 (Sloan) and …</item>
+        <item>10</item>
+        <item>1</item>
+        <item>34</item>
+        <item>91</item>
+    </string-array>
+
+    <string-array name="question_10">
+        <item>Who wore retired number 33?</item>
+        <item>Scottie Pippen</item>
+        <item>Dennis Rodman</item>
+        <item>Steve Kerr</item>
+        <item>Jerry Sloan</item>
+    </string-array>
+
+    <string-array name="question_11">
+        <item>What pick was Joakim Noah selected with?</item>
+        <item>9th</item>
+        <item>7th</item>
+        <item>11th</item>
+        <item>13th</item>
+    </string-array>
+
+    <string-array name="question_12">
+        <item>Who was traded for Scottie Pippen in 1998 from the Houston Rockets?</item>
+        <item>Roy Rogers</item>
+        <item>Brian Shaw</item>
+        <item>Ed Gray</item>
+        <item>Charles Barkley</item>
+    </string-array>
+
+    <string-array name="question_13">
+        <item>When did the Bulls move to the United Center?</item>
+        <item>1994</item>
+        <item>2004</item>
+        <item>1999</item>
+        <item>1998</item>
+    </string-array>
+
+    <string-array name="question_14">
+        <item>The Bulls holds the second best NBA regular season record, which was…</item>
+        <item>72 – 10</item>
+        <item>69 – 13</item>
+        <item>70 – 12</item>
+        <item>73 – 9</item>
+    </string-array>
+
+    <string-array name="question_15">
+        <item>Complete the quote from 1998: "Here comes Chicago. 17. seconds from game 7 or from Championship number 6… Jordan, open…</item>
+        <item>Chicago with the lead!</item>
+        <item>It is good!</item>
+        <item>Jordan gets it!</item>
+        <item>Shoots and scores!</item>
+    </string-array>
+
+    <string-array name="question_16">
+        <item>How many Chicago Bulls players have won the MVP award?</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="question_17">
+        <item>The Bulls defeated 5 teams in their 6 NBA Playoff appearances: Lakers, Sonics, Blazers, Suns and…</item>
+        <item>Utah Jazz</item>
+        <item>Houston Rockets</item>
+        <item>Golden State Warriors</item>
+        <item>Cleveland Cavaliers</item>
+    </string-array>
+
+    <string-array name="question_18">
+        <item>What year was Michael Jordan drafted?</item>
+        <item>1984</item>
+        <item>1983</item>
+        <item>1985</item>
+        <item>1989</item>
+    </string-array>
+    <string name="title_activity_result">ResultActivity</string>
+</resources>
