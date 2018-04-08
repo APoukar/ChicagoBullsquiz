@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.krtkush.lineartimer.LinearTimer;
+import io.github.krtkush.lineartimer.LinearTimerView;
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -20,53 +24,11 @@ public class QuestionActivity extends AppCompatActivity {
     CountDownTimer countDown;
     TextView questionTextView, timerTextView;
     Button answer0, answer1, answer2, answer3;
+    LinearTimerView timerProgressBar;
+    LinearTimer linearTimer;
     Score score;
-    private int questionIndex, numberOfQuestions;
     byte clickCount;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
-
-        drawnQuestions = new ArrayList<>();
-        questionManager = new QuestionManager();
-        countDown = setCountDownTimer();
-        questionTextView = findViewById(R.id.question);
-        timerTextView = findViewById(R.id.questionTimer);
-        answer0 = findViewById(R.id.answer_0);
-        answer1 = findViewById(R.id.answer_1);
-        answer2 = findViewById(R.id.answer_2);
-        answer3 = findViewById(R.id.answer_3);
-        score = new Score();
-        questionIndex = 0;
-        numberOfQuestions = 6;
-        clickCount = 0;
-
-        answer0.setOnClickListener(onClickListener);
-        answer1.setOnClickListener(onClickListener);
-        answer2.setOnClickListener(onClickListener);
-        answer3.setOnClickListener(onClickListener);
-
-        /*
-         * Retrieves Question arrays from strings.xml
-         * and adds them to the questionManager class
-         * as objects
-         */
-        for (int i = 0; i < 19; ++i) {
-            int id = (getApplicationContext().getResources().getIdentifier("question_" + i, "array", getPackageName()));
-            Question questionArray = new Question(getApplicationContext().getResources().getStringArray(id));
-            questionManager.addQuestion(questionArray);
-        }
-
-        questionManager.createListOfChosenQuestions(numberOfQuestions, drawnQuestions);
-
-        changeQuestion();
-        countDown.start();
-
-
-        }
-
+    private int questionIndex, numberOfQuestions;
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -93,6 +55,53 @@ public class QuestionActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_question);
+
+        drawnQuestions = new ArrayList<>();
+        questionManager = new QuestionManager();
+        countDown = setCountDownTimer();
+        questionTextView = findViewById(R.id.question);
+        timerTextView = findViewById(R.id.questionTimer);
+        answer0 = findViewById(R.id.answer_0);
+        answer1 = findViewById(R.id.answer_1);
+        answer2 = findViewById(R.id.answer_2);
+        answer3 = findViewById(R.id.answer_3);
+        timerProgressBar = findViewById(R.id.timer_progress_bar);
+        linearTimer = setUpLinearTimer();
+        score = new Score();
+        questionIndex = 0;
+        numberOfQuestions = 6;
+        clickCount = 0;
+
+        answer0.setOnClickListener(onClickListener);
+        answer1.setOnClickListener(onClickListener);
+        answer2.setOnClickListener(onClickListener);
+        answer3.setOnClickListener(onClickListener);
+
+
+        /*
+         * Retrieves Question arrays from strings.xml
+         * and adds them to the questionManager class
+         * as objects
+         */
+        for (int i = 0; i < 19; ++i) {
+            int id = (getApplicationContext().getResources().getIdentifier("question_" + i, "array", getPackageName()));
+            Question questionArray = new Question(getApplicationContext().getResources().getStringArray(id));
+            questionManager.addQuestion(questionArray);
+        }
+
+        questionManager.createListOfChosenQuestions(numberOfQuestions, drawnQuestions);
+
+        changeQuestion();
+        countDown.start();
+        linearTimer.startTimer();
+
+
+        }
 
     private void changeQuestion() {
         questionIndex = drawnQuestions.get(clickCount);
@@ -138,5 +147,13 @@ public class QuestionActivity extends AppCompatActivity {
         isItOver();
         changeQuestion();
         restartCountDownTimer(countDown);
+        linearTimer.restartTimer();
+    }
+
+    private LinearTimer setUpLinearTimer() {
+        return new LinearTimer.Builder()
+                .linearTimerView(timerProgressBar)
+                .duration(15000)
+                .build();
     }
 }
