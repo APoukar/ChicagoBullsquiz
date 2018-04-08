@@ -29,7 +29,7 @@ public class QuestionActivity extends AppCompatActivity {
     Score score;
     byte clickCount;
     private int questionIndex, numberOfQuestions;
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             String answer = null;
@@ -99,33 +99,7 @@ public class QuestionActivity extends AppCompatActivity {
         changeQuestion();
         countDown.start();
         linearTimer.startTimer();
-
-
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String answer = null;
-            switch (view.getId()) {
-                case R.id.answer_0:
-                    answer = answer0.getText().toString();
-                    break;
-                case R.id.answer_1:
-                    answer = answer1.getText().toString();
-                    break;
-                case R.id.answer_2:
-                    answer = answer2.getText().toString();
-                    break;
-                case R.id.answer_3:
-                    answer = answer3.getText().toString();
-                    break;
-                default:
-                    Log.v("Something wrong with: ", "onClickListener");
-            }
-
-            checkAnswer(questionIndex, answer);
-            moveOn();
-
-        }
+    }
 
     private void changeQuestion() {
         questionIndex = drawnQuestions.get(clickCount);
@@ -137,7 +111,7 @@ public class QuestionActivity extends AppCompatActivity {
         answer3.setText(answers[3]);
     }
 
-    private void checkAnswer(int questionIndex,String answer) {
+    private void checkAnswer(int questionIndex, String answer) {
         if (questionManager.isAnswerCorrect(questionIndex, answer))
             score.incrementScore();
     }
