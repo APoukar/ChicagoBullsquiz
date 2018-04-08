@@ -1,67 +1,35 @@
 package com.example.android.chicagobullsquiz;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.krtkush.lineartimer.LinearTimer;
+import io.github.krtkush.lineartimer.LinearTimerView;
 
 public class QuestionActivity extends AppCompatActivity {
 
     List<Integer> drawnQuestions;
     String[] answers;
     QuestionManager questionManager;
-    TextView questionTextView;
+    CountDownTimer countDown;
+    TextView questionTextView, timerTextView;
     Button answer0, answer1, answer2, answer3;
+    LinearTimerView timerProgressBar;
+    LinearTimer linearTimer;
     Score score;
-    private int questionIndex, numberOfQuestions;
     byte clickCount;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
-
-        drawnQuestions = new ArrayList<>();
-        questionManager = new QuestionManager();
-        questionTextView = findViewById(R.id.question);
-        answer0 = findViewById(R.id.answer_0);
-        answer1 = findViewById(R.id.answer_1);
-        answer2 = findViewById(R.id.answer_2);
-        answer3 = findViewById(R.id.answer_3);
-        score = new Score();
-        questionIndex = 0;
-        numberOfQuestions = 6;
-        clickCount = 0;
-
-        answer0.setOnClickListener(onClickListener);
-        answer1.setOnClickListener(onClickListener);
-        answer2.setOnClickListener(onClickListener);
-        answer3.setOnClickListener(onClickListener);
-
-        /*
-         * Retrieves Question arrays from strings.xml
-         * and adds them to the questionManager class
-         * as objects
-         */
-        for (int i = 0; i < 19; ++i) {
-            int id = (getApplicationContext().getResources().getIdentifier("question_" + i, "array", getPackageName()));
-            Question questionArray = new Question(getApplicationContext().getResources().getStringArray(id));
-            questionManager.addQuestion(questionArray);
-        }
-
-        questionManager.createListOfChosenQuestions(numberOfQuestions, drawnQuestions);
-
-        changeQuestion();
-
-        }
-
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
+    private int questionIndex, numberOfQuestions;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             String answer = null;
@@ -83,13 +51,55 @@ public class QuestionActivity extends AppCompatActivity {
             }
 
             checkAnswer(questionIndex, answer);
-            clickCount++;
-            isItOver();
-            changeQuestion();
-
+            moveOn();
 
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_question);
+
+        drawnQuestions = new ArrayList<>();
+        questionManager = new QuestionManager();
+        countDown = setCountDownTimer();
+        questionTextView = findViewById(R.id.question);
+        timerTextView = findViewById(R.id.questionTimer);
+        answer0 = findViewById(R.id.answer_0);
+        answer1 = findViewById(R.id.answer_1);
+        answer2 = findViewById(R.id.answer_2);
+        answer3 = findViewById(R.id.answer_3);
+        timerProgressBar = findViewById(R.id.timer_progress_bar);
+        linearTimer = setUpLinearTimer();
+        score = new Score();
+        questionIndex = 0;
+        numberOfQuestions = 6;
+        clickCount = 0;
+
+        answer0.setOnClickListener(onClickListener);
+        answer1.setOnClickListener(onClickListener);
+        answer2.setOnClickListener(onClickListener);
+        answer3.setOnClickListener(onClickListener);
+
+
+        /*
+         * Retrieves Question arrays from strings.xml
+         * and adds them to the questionManager class
+         * as objects
+         */
+        for (int i = 0; i < 19; ++i) {
+            int id = (getApplicationContext().getResources().getIdentifier("question_" + i, "array", getPackageName()));
+            Question questionArray = new Question(getApplicationContext().getResources().getStringArray(id));
+            questionManager.addQuestion(questionArray);
+        }
+
+        questionManager.createListOfChosenQuestions(numberOfQuestions, drawnQuestions);
+
+        changeQuestion();
+        countDown.start();
+        linearTimer.startTimer();
+    }
 
     private void changeQuestion() {
         questionIndex = drawnQuestions.get(clickCount);
@@ -101,7 +111,7 @@ public class QuestionActivity extends AppCompatActivity {
         answer3.setText(answers[3]);
     }
 
-    private void checkAnswer(int questionIndex,String answer) {
+    private void checkAnswer(int questionIndex, String answer) {
         if (questionManager.isAnswerCorrect(questionIndex, answer))
             score.incrementScore();
     }
@@ -110,5 +120,38 @@ public class QuestionActivity extends AppCompatActivity {
         Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
         if (numberOfQuestions == clickCount)
             QuestionActivity.this.startActivity(intent);
+    }
+
+    private CountDownTimer setCountDownTimer() {
+        return new CountDownTimer(15000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timerTextView.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                moveOn();
+            }
+        };
+    }
+
+    private void restartCountDownTimer(CountDownTimer countDownTimer) {
+        countDownTimer.cancel();
+        countDownTimer.start();
+    }
+
+    private void moveOn() {
+        clickCount++;
+        isItOver();
+        changeQuestion();
+        restartCountDownTimer(countDown);
+        linearTimer.restartTimer();
+    }
+
+    private LinearTimer setUpLinearTimer() {
+        return new LinearTimer.Builder()
+                .linearTimerView(timerProgressBar)
+                .duration(15000)
+                .build();
     }
 }
