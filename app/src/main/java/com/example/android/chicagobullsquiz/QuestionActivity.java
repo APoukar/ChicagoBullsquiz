@@ -101,6 +101,30 @@ public class QuestionActivity extends AppCompatActivity {
         linearTimer.startTimer();
 
 
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String answer = null;
+            switch (view.getId()) {
+                case R.id.answer_0:
+                    answer = answer0.getText().toString();
+                    break;
+                case R.id.answer_1:
+                    answer = answer1.getText().toString();
+                    break;
+                case R.id.answer_2:
+                    answer = answer2.getText().toString();
+                    break;
+                case R.id.answer_3:
+                    answer = answer3.getText().toString();
+                    break;
+                default:
+                    Log.v("Something wrong with: ", "onClickListener");
+            }
+
+            checkAnswer(questionIndex, answer);
+            moveOn();
+
         }
 
     private void changeQuestion() {
