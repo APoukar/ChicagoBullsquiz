@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class QuestionActivity extends AppCompatActivity {
         questionManager = new QuestionManager();
         countDown = setCountDownTimer();
         questionTextView = findViewById(R.id.question);
-        timerTextView = findViewById(R.id.questionTimer);
+        timerTextView = findViewById(R.id.question_timer);
         answer0 = findViewById(R.id.answer_0);
         answer1 = findViewById(R.id.answer_1);
         answer2 = findViewById(R.id.answer_2);
