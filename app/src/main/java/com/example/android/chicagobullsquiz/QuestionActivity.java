@@ -21,7 +21,7 @@ public class QuestionActivity extends AppCompatActivity {
     String[] answers;
     QuestionManager questionManager;
     CountDownTimer countDown;
-    TextView questionTextView, timerTextView;
+    TextView questionTextView, timerTextView, questionCounterTextView;
     Button answer0, answer1, answer2, answer3;
     LinearTimerView timerProgressBar;
     LinearTimer linearTimer;
@@ -65,6 +65,7 @@ public class QuestionActivity extends AppCompatActivity {
         countDown = setCountDownTimer();
         questionTextView = findViewById(R.id.question);
         timerTextView = findViewById(R.id.question_timer);
+        questionCounterTextView = findViewById(R.id.question_counter_view);
         answer0 = findViewById(R.id.answer_0);
         answer1 = findViewById(R.id.answer_1);
         answer2 = findViewById(R.id.answer_2);
@@ -96,8 +97,10 @@ public class QuestionActivity extends AppCompatActivity {
         questionManager.createListOfChosenQuestions(numberOfQuestions, drawnQuestions);
 
         changeQuestion();
+        setQuestionCounterTextView();
         countDown.start();
         linearTimer.startTimer();
+
     }
 
     private void changeQuestion() {
@@ -143,6 +146,7 @@ public class QuestionActivity extends AppCompatActivity {
         clickCount++;
         isItOver();
         changeQuestion();
+        setQuestionCounterTextView();
         restartCountDownTimer(countDown);
         linearTimer.restartTimer();
     }
@@ -152,5 +156,13 @@ public class QuestionActivity extends AppCompatActivity {
                 .linearTimerView(timerProgressBar)
                 .duration(15000)
                 .build();
+    }
+
+    private void setQuestionCounterTextView() {
+        StringBuilder questionCounter = new StringBuilder()
+                .append(clickCount + 1)
+                .append("/")
+                .append(numberOfQuestions);
+        questionCounterTextView.setText(questionCounter);
     }
 }
