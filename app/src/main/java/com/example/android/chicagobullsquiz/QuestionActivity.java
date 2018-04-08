@@ -1,6 +1,7 @@
 package com.example.android.chicagobullsquiz;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,8 @@ public class QuestionActivity extends AppCompatActivity {
     List<Integer> drawnQuestions;
     String[] answers;
     QuestionManager questionManager;
-    TextView questionTextView;
+    CountDownTimer countDown;
+    TextView questionTextView, timerTextView;
     Button answer0, answer1, answer2, answer3;
     Score score;
     private int questionIndex, numberOfQuestions;
@@ -29,7 +31,9 @@ public class QuestionActivity extends AppCompatActivity {
 
         drawnQuestions = new ArrayList<>();
         questionManager = new QuestionManager();
+        countDown = setCountDownTimer();
         questionTextView = findViewById(R.id.question);
+        timerTextView = findViewById(R.id.questionTimer);
         answer0 = findViewById(R.id.answer_0);
         answer1 = findViewById(R.id.answer_1);
         answer2 = findViewById(R.id.answer_2);
@@ -58,6 +62,8 @@ public class QuestionActivity extends AppCompatActivity {
         questionManager.createListOfChosenQuestions(numberOfQuestions, drawnQuestions);
 
         changeQuestion();
+        countDown.start();
+
 
         }
 
@@ -83,10 +89,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
 
             checkAnswer(questionIndex, answer);
-            clickCount++;
-            isItOver();
-            changeQuestion();
-
+            moveOn();
 
         }
     };
@@ -110,5 +113,31 @@ public class QuestionActivity extends AppCompatActivity {
         Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
         if (numberOfQuestions == clickCount)
             QuestionActivity.this.startActivity(intent);
+    }
+
+    private CountDownTimer setCountDownTimer() {
+        CountDownTimer countDownTimer = new CountDownTimer(15000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timerTextView.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                moveOn();
+            }
+        };
+        return countDownTimer;
+    }
+
+    private void restartCountDownTimer(CountDownTimer countDownTimer) {
+        countDownTimer.cancel();
+        countDownTimer.start();
+    }
+
+    private void moveOn() {
+        clickCount++;
+        isItOver();
+        changeQuestion();
+        restartCountDownTimer(countDown);
     }
 }
