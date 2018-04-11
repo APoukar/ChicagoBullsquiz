@@ -15,21 +15,20 @@ import static com.example.android.chicagobullsquiz.QuestionActivity.*;
 public class ResultActivity extends AppCompatActivity {
 
     TextView scoreTextView;
-    Score score;
-
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        scoreTextView = (TextView)findViewById(R.id.score);
-        score = new Score();
 
-        scoreTextView.setText(String.valueOf(score.getScore()));
+        scoreTextView = findViewById(R.id.score);
+
+        scoreTextView.setText(String.valueOf(setScore()));
     }
 
-//    private String setScore() {
-//        return numberOfPoints.toString();
-//    }
+    private Integer setScore() {
+        return getIntent().getIntExtra("score", score);
+    }
 }

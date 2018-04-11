@@ -1,9 +1,9 @@
 package com.example.android.chicagobullsquiz;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +25,8 @@ public class QuestionActivity extends AppCompatActivity {
     Button answer0, answer1, answer2, answer3;
     LinearTimerView timerProgressBar;
     LinearTimer linearTimer;
-    Score score;
     byte clickCount;
-    private int questionIndex, numberOfQuestions;
+    private int questionIndex, numberOfQuestions, score;
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -72,10 +71,10 @@ public class QuestionActivity extends AppCompatActivity {
         answer3 = findViewById(R.id.answer_3);
         timerProgressBar = findViewById(R.id.timer_progress_bar);
         linearTimer = setUpLinearTimer();
-        score = new Score();
         questionIndex = 0;
         numberOfQuestions = 6;
         clickCount = 0;
+        score = 0;
 
         answer0.setOnClickListener(onClickListener);
         answer1.setOnClickListener(onClickListener);
@@ -115,13 +114,14 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void checkAnswer(int questionIndex, String answer) {
         if (questionManager.isAnswerCorrect(questionIndex, answer))
-            score.incrementScore();
+            score++;
     }
 
     private void isItOver() {
-        Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+        Intent intent = new Intent(QuestionActivity.this, ResultActivity.class)
+                .putExtra("score", score);
         if (numberOfQuestions == clickCount)
-            QuestionActivity.this.startActivity(intent);
+            startActivity(intent);
     }
 
     private CountDownTimer setCountDownTimer() {
