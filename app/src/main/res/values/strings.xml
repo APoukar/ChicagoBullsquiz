@@ -2,6 +2,7 @@
     <string name="app_name">Chicago Bulls quiz</string>
     <string name="start_game">Start Game</string>
     <string name="your_score">Your score</string>
+    <string name="play_again">Play again</string>
 
     <!--All the questions with answers in string arrays.
         The first item is a question,

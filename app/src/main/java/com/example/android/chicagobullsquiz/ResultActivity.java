@@ -1,5 +1,6 @@
 package com.example.android.chicagobullsquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,12 +24,17 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
 
-        scoreTextView = findViewById(R.id.score);
+        scoreTextView = findViewById(R.id.score_count);
 
         scoreTextView.setText(String.valueOf(setScore()));
     }
 
     private Integer setScore() {
         return getIntent().getIntExtra("score", score);
+    }
+
+    public void restartGame(View view) {
+        Intent restartGame = new Intent(ResultActivity.this, QuestionActivity.class);
+        startActivity(restartGame);
     }
 }

@@ -24,7 +24,7 @@
         android:id="@+id/question_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
+        android:textColor="@color/whiteTextColor"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="@id/timer_progress_bar"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -73,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/buttons"
             tools:text="Answer 0" />
 
         <Button
@@ -81,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/buttons"
             tools:text="Answer 1" />
 
         <Button
@@ -89,6 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/buttons"
             tools:text="Answer 2" />
 
         <Button
@@ -97,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/buttons"
             tools:text="Answer 3" />
     </android.support.v7.widget.LinearLayoutCompat>
 
