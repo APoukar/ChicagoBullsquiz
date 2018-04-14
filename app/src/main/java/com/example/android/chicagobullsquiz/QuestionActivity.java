@@ -102,6 +102,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     }
 
+    //Changes shown question
     private void changeQuestion() {
         questionIndex = drawnQuestions.get(clickCount);
         answers = questionManager.getAnswers(questionIndex);
@@ -112,11 +113,14 @@ public class QuestionActivity extends AppCompatActivity {
         answer3.setText(answers[3]);
     }
 
+    //Checks if the given answer is correct
     private void checkAnswer(int questionIndex, String answer) {
         if (questionManager.isAnswerCorrect(questionIndex, answer))
             score++;
     }
 
+
+    //Checks if it was last question
     private void isItOver() {
         Intent intent = new Intent(QuestionActivity.this, ResultActivity.class)
                 .putExtra("score", score);
@@ -124,6 +128,7 @@ public class QuestionActivity extends AppCompatActivity {
             startActivity(intent);
     }
 
+    //Sets CountDownTimer
     private CountDownTimer setCountDownTimer() {
         return new CountDownTimer(15000, 1000) {
 
@@ -137,11 +142,13 @@ public class QuestionActivity extends AppCompatActivity {
         };
     }
 
+    //Restarts Circle progress view
     private void restartCountDownTimer(CountDownTimer countDownTimer) {
         countDownTimer.cancel();
         countDownTimer.start();
     }
 
+    //Group of steps which should be done after every answer
     private void moveOn() {
         clickCount++;
         isItOver();
@@ -151,6 +158,7 @@ public class QuestionActivity extends AppCompatActivity {
         linearTimer.restartTimer();
     }
 
+    //Creates Circle progress view
     private LinearTimer setUpLinearTimer() {
         return new LinearTimer.Builder()
                 .linearTimerView(timerProgressBar)
@@ -158,6 +166,8 @@ public class QuestionActivity extends AppCompatActivity {
                 .build();
     }
 
+
+    // Shows how many questions has been answered
     private void setQuestionCounterTextView() {
         StringBuilder questionCounter = new StringBuilder()
                 .append(clickCount + 1)

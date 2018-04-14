@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //Button that starts the game
         Button questionActivity = findViewById(R.id.question_activity);
         questionActivity.setOnClickListener(new View.OnClickListener() {
             @Override
