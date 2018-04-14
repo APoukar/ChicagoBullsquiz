@@ -21,6 +21,21 @@ public class QuestionManager {
     }
 
     /*
+     * Randomizes the order of answers
+     * Uses Fisher-Yates algorithm
+     */
+    private static void shuffleArray(String[] array) {
+        int arrayLength = array.length;
+        Random random = new Random();
+        for (int i = 0; i < arrayLength; i++) {
+            int randomIndex = i + random.nextInt(arrayLength - i);
+            String randomElement = array[randomIndex];
+            array[randomIndex] = array[i];
+            array[i] = randomElement;
+        }
+    }
+
+    /*
      * Adds question to the question pool
      */
     public void addQuestion(Question question) {
@@ -57,21 +72,6 @@ public class QuestionManager {
         return answers;
     }
 
-  /*
-   * Randomizes the order of answers
-   * Uses Fisher-Yates algorithm
-   */
-    private static void shuffleArray(String[] array) {
-        int arrayLength = array.length;
-        Random random = new Random();
-        for (int i = 0; i < arrayLength; i++) {
-            int randomIndex = i + random.nextInt(arrayLength - i);
-            String randomElement = array[randomIndex];
-            array[randomIndex] = array[i];
-            array[i] = randomElement;
-        }
-    }
-
     /*
      * Checks if the given answer is correct
      */
@@ -98,7 +98,7 @@ public class QuestionManager {
         do {
             int randomQuestionNumber = drawRandomQuestion();
             if (!nameOfTheList.contains(randomQuestionNumber)) {
-                nameOfTheList.add(drawRandomQuestion());
+                nameOfTheList.add(randomQuestionNumber);
                 i++; }
         }while (i < numberOfQuestions);
     }
